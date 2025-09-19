@@ -6,7 +6,7 @@ import Confettis from '../components/ConfettiLauncher.astro';
 import AstroLogo from '../assets/astro-icon.svg?raw';
 import FlowbiteLogo from '../assets/flowbite-logo.svg?raw';
 
-import * as readMe from '../../README.md';
+
 import { SITE_TITLE } from '../app/constants.js';
 ---
 
@@ -27,17 +27,17 @@ import { SITE_TITLE } from '../app/constants.js';
 			<p
 				class="text-4xl lg:text-8xl dark:text-slate-200 text-slate-600 leading-tight"
 			>
-				Hello <a
+				ODATA <a
 					rel="noopener nofollow"
 					href="https://astro.build"
 					class="font-bold text-transparent bg-clip-text bg-gradient-to-br from-pink-400 to-violet-800 dark:from-pink-300 dark:to-violet-700 no-underline"
-					>Astro</a
+					>API's</a
 				>…
-				<br />meet <a
+				<br /> Integration Content <a
 					rel="noopener nofollow"
 					href="https://flowbite.com"
 					class="font-bold text-blue-600 dark:text-blue-500 no-underline"
-					>Flowbite</a
+					>SAPians</a
 				>!
 			</p>
 
@@ -67,22 +67,70 @@ https://github.com/themesberg/flowbite-astro-admin-dashboard.git`}
 		</div>
 	</section>
 
-	<article class="flex justify-center pt-32 pb-32">
+	<article class="flex justify-center pt-16 pb-16">
 		<div class="w-full readme format dark:format-invert lg:format-lg">
-			<h1 class="text-center">
+			<h1 class="text-center pb-6">
 				<!-- {readMe.getHeadings()[0].text} -->
 				{SITE_TITLE}
 			</h1>
-			<readMe.Content />
+			Operating an integration scenario requires certain integration artifacts. Using the OData API you can access integration artifacts.
+
+Integration artifacts contain the information required for the runtime components to process messages in the context of a certain integration scenario. First and foremost, an integration flow artifact contains all information about the connectivity settings and processing steps modeled in an integration flow model with the Web UI (in the Design section). When an integration developer has finished the modeling tasks, they deploy the integration - as an integration artifact - on the tenant and, that way, makes it executable.
+
+
 		</div>
 	</article>
-</div>
+		<article class="flex justify-center pt-16 pb-16">
+		<div class="w-full readme format dark:format-invert lg:format-lg">
+			<h1 class="text-center pb-6">
+				<!-- {readMe.getHeadings()[0].text} -->
+				Integration flow
+			</h1>
+			An executable integration flow model
+
+An integration flow specifies the way how a message is to be processed between different systems.
+
+In particular, you define in an integration flow: the senders and receivers of a message, how the senders and receivers are connected to the tenant (adapters), and the steps that define the message processing.
+
+You can design an integration flow in the Web UI Design section.
+		</div>
+	</article>
+	<article class="flex justify-center pt-16 pb-16">
+		<div class="w-full readme format dark:format-invert lg:format-lg">
+			<h1 class="text-center pb-6">
+				<!-- {readMe.getHeadings()[0].text} -->
+				OData API
+			</h1>
+			An executable OData API model
+
+You can use an OData API to expose data sources as OData endpoints. You can design an OData in the Web UI Design section. The system generates from an OData API an integration flow that contains by default an OData sender adapter.
+		</div>
+	</article>
+		<article class="flex justify-center pt-16 pb-26">
+		<div class="w-full readme format dark:format-invert lg:format-lg">
+			<h1 class="text-center pb-6">
+				<!-- {readMe.getHeadings()[0].text} -->
+				Integration Packages - Design
+			</h1>
+			Represents an integration package in the Cloud Integration Design section.
+
+You can use resource IntegrationPackages to access (create, update, delete, read) integration packages. You can read an entire integration package, or only an integration flow or you can read all the packages in design time.
+	</article>
+			<article class="flex justify-center pt-16 pb-16">
+		<div class="w-full readme format dark:format-invert lg:format-lg">
+			<h1 class="text-center pb-6">
+				<!-- {readMe.getHeadings()[0].text} -->
+				Script Collection
+			</h1>
+			Represents a script collection.
+
+You can create and upload a script collection, add resources to a script collection, and deploy a script collection.
+
+You can access script collections through the ScriptCollectionDesigntimeArtifacts resource.
 
 <style>
 	/* Override in Markdown H1 title */
-	.readme :global(h1:nth-of-type(2)) {
-		display: none;
-	}
+
 
 	.svg-inline :global(svg) {
 		height: 100%;

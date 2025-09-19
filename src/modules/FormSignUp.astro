@@ -1,5 +1,5 @@
 ---
-import { asset, url } from '../lib/data.js';
+import { asset } from '../lib/data.js';
 ---
 
 <div
@@ -10,7 +10,7 @@ import { asset, url } from '../lib/data.js';
 		class="flex items-center justify-center mb-8 text-2xl font-semibold lg:mb-10 dark:text-white"
 	>
 		<img src={asset('images/logo.svg')} alt="FlowBite Logo" class="mr-4 h-11" />
-		<span>Flowbite</span>
+		<span>SAPians</span>
 	</a>
 	<!-- Card -->
 	<div
@@ -19,7 +19,7 @@ import { asset, url } from '../lib/data.js';
 		<h2 class="text-2xl font-bold text-gray-900 dark:text-white">
 			Create a Free Account
 		</h2>
-		<form class="mt-8 space-y-6" action="#">
+		<form class="mt-8 space-y-6" action="#" id="signup-form">
 			<div>
 				<label
 					for="email"
@@ -50,6 +50,7 @@ import { asset, url } from '../lib/data.js';
 					required
 				/>
 			</div>
+			
 			<div>
 				<label
 					for="confirm-password"
@@ -61,6 +62,66 @@ import { asset, url } from '../lib/data.js';
 					name="confirm-password"
 					id="confirm-password"
 					placeholder="••••••••"
+					class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+					required
+				/>
+			</div>
+						<div>
+				<label
+					for="Text"
+					class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+					>Client ID</label
+				>
+				<input
+					type="text"
+					name="client-id"
+					id="client-id"
+					placeholder="Client ID"
+					class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+					required
+				/>
+			</div>
+						<div>
+				<label
+					for="Text"
+					class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+					>Client Secret</label
+				>
+				<input
+					type="password"
+					name="client-secret"
+					id="client-secret"
+					placeholder="Client Secret"
+					class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+					required
+				/>
+			</div>
+						<div>
+				<label
+					for="Text"
+					class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+					>Token Url</label
+				>
+				<input
+					type="text"
+					name="token-url"
+					id="token-url"
+					placeholder="Token Url"
+					class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+					required
+				/>
+			</div>
+						<div>
+				<label
+					for="Text"
+					class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+					>Tenant Url</label
+				>
+				<input
+					type="text"
+					name="tenant-url"
+					id="tenant-url"
+					placeholder="Tenant Url"
 					class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
 					required
 				/>
@@ -89,10 +150,52 @@ import { asset, url } from '../lib/data.js';
 				</div>
 			</div>
 			<button
-				type="submit"
-				class="w-full px-5 py-3 text-base font-medium text-center text-white bg-primary-700 rounded-lg hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 sm:w-auto dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-				>Create account</button
-			>
+						   type="submit"
+						   class="w-full px-5 py-3 text-base font-medium text-center text-white bg-primary-700 rounded-lg hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 sm:w-auto dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+						   id="signup-submit"
+					   >Create account</button>
+</form>
+<script type="module">
+	document.addEventListener('DOMContentLoaded', () => {
+		const form = document.getElementById('signup-form');
+		form.addEventListener('submit', async (e) => {
+			e.preventDefault();
+			const data = {
+				email: form.email.value,
+				password: form.password.value,
+				confirmPassword: form['confirm-password'].value,
+				clientId: form['client-id'].value,
+				clientSecret: form['client-secret'].value,
+				tokenUrl: form['token-url'].value,
+				tenantUrl: form['tenant-url'].value,
+				remember: form.remember.checked
+			};
+			// Dummy API call simulation
+			try {
+				const response = await fakeSignUpApi(data);
+				if (response.status === 200) {
+					window.location.href = '/authentication/sign-in';
+				} else {
+					alert(response.message || 'Sign up failed.');
+				}
+			} catch (err) {
+				alert('Sign up failed.');
+			}
+		});
+	});
+
+	// Dummy API function
+	async function fakeSignUpApi(data) {
+		// Simulate API delay
+		await new Promise((res) => setTimeout(res, 700));
+		// Simulate success if email does not contain 'fail'
+		if (!data.email.includes('fail')) {
+			return { status: 200 };
+		} else {
+			return { status: 400, message: 'Email already exists.' };
+		}
+	}
+</script>
 			<div class="text-sm font-medium text-gray-500 dark:text-gray-400">
 				Already have an account? <a
 					href="#"
