@@ -4,7 +4,7 @@ module.exports = {
 	content: [
 		//
 		'./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}',
-		'./node_modules/flowbite/**/*.js',
+	'./node_modules/flowbite/**/*.js', // SAPians UI components (formerly Flowbite)
 	],
 
 	darkMode: 'class',
@@ -109,8 +109,8 @@ module.exports = {
 
 	plugins: [
 		//
-		require('flowbite/plugin'),
-		require('flowbite-typography'),
+	require('flowbite/plugin'), // SAPians UI plugin (formerly Flowbite)
+	require('flowbite-typography'), // SAPians Typography (formerly Flowbite)
 		require('tailwind-scrollbar')({ nocompatible: true }),
 	],
 };
