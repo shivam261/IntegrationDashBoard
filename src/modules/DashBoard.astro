@@ -4,6 +4,59 @@
 import { asset } from '../lib/data';
 ---
 
+<script is:inline>
+		// Simple tab switching logic
+		if (typeof window !== 'undefined') {
+			window.addEventListener('DOMContentLoaded', () => {
+				// Tab logic
+				const tabButtons = document.querySelectorAll('[data-tabs-target]');
+				const tabPanels = document.querySelectorAll('[role="tabpanel"]');
+				tabButtons.forEach(btn => {
+					btn.addEventListener('click', () => {
+						tabButtons.forEach(b => b.setAttribute('aria-selected', 'false'));
+						tabPanels.forEach(panel => panel.classList.add('hidden'));
+						btn.setAttribute('aria-selected', 'true');
+						const target = btn.getAttribute('data-tabs-target');
+						if (target) {
+							const panel = document.querySelector(target);
+							if (panel) panel.classList.remove('hidden');
+						}
+					});
+				});
+				if (tabButtons.length && tabPanels.length) {
+					tabButtons[0].setAttribute('aria-selected', 'true');
+					tabPanels[0].classList.remove('hidden');
+				}
+
+				// Popover logic
+				const popoverBtn = document.querySelector('[data-popover-target="popover-description"]');
+				const popover = document.getElementById('popover-description');
+				if (popoverBtn && popover) {
+					popoverBtn.addEventListener('click', (e) => {
+						e.stopPropagation();
+						const isVisible = !popover.classList.contains('invisible') && !popover.classList.contains('opacity-0');
+						if (isVisible) {
+							popover.classList.add('invisible');
+							popover.classList.remove('opacity-100');
+							popover.classList.add('opacity-0');
+						} else {
+							popover.classList.remove('invisible');
+							popover.classList.remove('opacity-0');
+							popover.classList.add('opacity-100');
+						}
+					});
+					// Hide popover when clicking outside
+					document.addEventListener('click', (e) => {
+						if (!popover.contains(e.target) && e.target !== popoverBtn) {
+							popover.classList.add('invisible');
+							popover.classList.remove('opacity-100');
+							popover.classList.add('opacity-0');
+						}
+					});
+				}
+			});
+		}
+</script>
 <div class="px-4 pt-6">
 	<div class="grid gap-4 xl:grid-cols-2 2xl:grid-cols-3">
 		<!-- Main widget -->
@@ -111,7 +164,7 @@ This API is implemented based on OData version 2 specification.
 				class="border-t border-gray-200 dark:border-gray-600"
 			>
 				<div
-					class="hidden pt-4"
+					class=" pt-4"
 					id="faq"
 					role="tabpanel"
 					aria-labelledby="faq-tab"

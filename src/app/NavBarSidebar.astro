@@ -186,3 +186,24 @@ import SearchInput from '../components/SearchInput.astro';
 		</div>
 	</div>
 </nav>
+<script is:inline>
+	if (typeof window !== 'undefined') {
+		window.addEventListener('DOMContentLoaded', () => {
+			// Profile dropdown logic
+			const profileBtn = document.getElementById('user-menu-button-2');
+			const profileDropdown = document.getElementById('dropdown-2');
+			if (profileBtn && profileDropdown) {
+				profileBtn.addEventListener('click', (e) => {
+					e.stopPropagation();
+					profileDropdown.classList.toggle('hidden');
+				});
+				// Hide dropdown when clicking outside
+				document.addEventListener('click', (e) => {
+					if (!profileDropdown.contains(e.target) && e.target !== profileBtn) {
+						profileDropdown.classList.add('hidden');
+					}
+				});
+			}
+		});
+	}
+</script>
