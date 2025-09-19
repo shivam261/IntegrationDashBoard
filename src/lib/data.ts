@@ -5,8 +5,17 @@ import { API_URL, REMOTE_ASSETS_BASE_URL } from '../app/constants.js';
 import type { Endpoint, EndpointsToOperations } from '../types/entities.js';
 
 export async function fetchData<Selected extends Endpoint>(endpoint: Selected) {
+	// Use mock data for static build
+	if (endpoint === 'products') {
+		const data = await import('../../data/products.json');
+		return data.default;
+	}
+	if (endpoint === 'users') {
+		const data = await import('../../data/users.json');
+		return data.default;
+	}
+	// fallback to API fetch for other endpoints
 	const apiEndpoint = `${API_URL}${endpoint}`;
-
 	console.info(`Fetching ${apiEndpoint}…`);
 	return fetch(apiEndpoint)
 		.then(
