@@ -27,4 +27,9 @@ export default defineConfig({
 		sitemap(),
 		tailwind(),
 	],
+	build: {
+		rollupOptions: {
+			external: ['shiki/themes/hc_light.json'],
+		},
+	},
 });
